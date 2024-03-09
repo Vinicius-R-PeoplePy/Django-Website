@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Forum</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Add your other CSS files here -->
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    
+    <script src="{% static 'js/common.js' %}"></script>
+    <!-- Add your other JavaScript files here -->
+</body>
+</html>

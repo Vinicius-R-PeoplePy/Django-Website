@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" id="login-container">
+    <h2>Login</h2>
+    <form action="/login/" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <button type="submit">Enter</button>
+        </div>
+    </form>
+    <div class="toggle-btn">
+        <button onclick="toggleForm('signup')">Create Account</button>
+    </div>
+</div>
+
+<div class="container" id="signup-container" style="display: none;">
+    <h2>Create Account</h2>
+    <form id="registration-form" action="/register/" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="birthdate">Birth Date:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+        </div>
+        <div class="form-group">
+            <label for="password">New Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="submitRegistrationForm()">Create Account</button>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="toggleForm('login')">Return to Login</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleForm(formName) {
+        var loginContainer = document.getElementById('login-container');
+        var signupContainer = document.getElementById('signup-container');
+
+        if (formName === 'signup') {
+            loginContainer.style.display = 'none';
+            signupContainer.style.display = 'block';
+        } else {
+            loginContainer.style.display = 'block';
+            signupContainer.style.display = 'none';
+        }
+    }
+
+    function submitRegistrationForm() {
+        var form = document.getElementById('registration-form');
+        var formData = new FormData(form);
+
+        fetch('/register/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                clearForm();
+                toggleForm('login');
+            } else {
+                console.error('Failed to create account.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function clearForm() {
+        document.getElementById('registration-form').reset();
+    }
+</script>
+{% endblock %}
