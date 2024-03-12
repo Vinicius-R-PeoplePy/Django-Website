@@ -1,0 +1,27 @@
+10.03.24
+
+-> Implement user authentication and authorization
+(edit settings.py; add 2 new URL'S: '/login/', '/logout/'; create login/logout Views;
+create login Template;define URL'S; protect Views with login_required decorator)
+
+11.03.24
+
+1. `POST /login/ HTTP/1.1" 302`: This indicates a succesful login attempt.
+The server responded with a status code `302`, which means a redirection
+is required. The client should follow the redirection to the URL specified
+in the response.
+
+2. `GET /login/ HTTP/1.1" 200`: After the succesful login attempt, 
+the client (typically a web browser) sent a `GET`request to `/login/`,
+and the server responded with a status code `200`, indicating a succesful 
+response. The client likely received the login page with the user authenticated.
+
+# added error message in case of failing user authentication. 
+
+# sending verification code to user while registering account
+
+# Solve CSRF token's request header (X-CSRFToken) error by ensuring 
+# it's included in the request header, using Django's built-in CSRF 
+# token template tag to generate the token in the JavaScript code
+# and include it properly.
+
