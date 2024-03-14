@@ -25,3 +25,77 @@ response. The client likely received the login page with the user authenticated.
 # token template tag to generate the token in the JavaScript code
 # and include it properly.
 
+# Update: All day debugging views and script for sending verification code.
+# Alternatives to Gr sending emails
+# Look for ESPs and SMTP servers:
+# Amazon SES (Simple Email Service); SendGrid; Mailgun; SMTP.com;
+# Postmark; Elastic Email; SparkPost; Sendinblue; Pepipost.
+
+# Choosed sendgrid. Problems to verify phone. 
+
+# Choosed Email Elastic.
+
+# Actualized function send_verification_email in views.py 
+
+# installed pack for django backend to use Elasticemail -> 
+# pip install -e git+https://github.com/muepsilon/elasticemail-django#egg=elasticemail-django
+
+# solved after hours debugging.
+
+12.03.24
+
+# introduced to SPF and DKIM records concepts; 
+# couldn't implement it because don't own a domain. 
+# changed verification code alert to instruct users to check email span box. 
+# looking for future domain acquisition, with SPF/DKIM settings. 
+
+# added a JS function to verify if email informed is valid
+
+# more hours of debugging. 
+
+# updated the codes for checking if user inputs correct verification code
+# if not, it raises error and user can't procceed to account registration. 
+
+# debugged database error
+
+# now users are being correctly added to the database. 
+
+# need to hash the passwords, however. 
+
+13.03.24
+
+# hashed the passwords that are send to the database. 
+# debugging user authentication. 
+# all day trying to resolve login error.
+
+14.03.24
+
+# all morning trying to resolve login error. 
+# finally resolved after many code implementations 
+( in JS: 
+- function to fetch CSRF
+- function tohandle form submissions with CSRF token 
+- function to handle registration form submission
+- function to handle login form submission 
+- event listeners to registration and login forms 
+- event listener to verification code input
+ 
+ in models.py:
+
+ - added AbstractBaseUser, PermissionsMixin, BaseUserManager importations 
+ - create CustomUser to pass all necessary parameters to work with database
+
+ in views.py:
+
+ - improved login_view to handle authentication, logs, JsonResponse.
+)
+
+# to do list: review and analyse all steps until now.
+# go to next step: expand the website starting with news feed page, then adding menus for user navigation
+(url display for profile, then mechanisms to create posts, displaying posts in each page,
+expand navigation for account customization and management of user data + logout method )
+
+* and more. 
+
+
+
